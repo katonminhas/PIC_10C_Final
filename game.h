@@ -18,10 +18,20 @@ public:
     Game(QWidget* parent = 0);
 
 
-    QGraphicsScene * scene;
+    QGraphicsScene* gameScene;
 
 
+    Diver* diver;
 
+
+private:
+
+    /* Integer variable indicating the current level
+     * of the game. This is equal to the amount of
+     * pearls that the diver must collect before
+     * resurfacing
+     */
+    int level;
 
 
 };

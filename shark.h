@@ -24,6 +24,16 @@ public slots:
     void move();
 
 
+private:
+
+
+    /* Integer variable indicating which side
+     * of the screen the shark spawns from
+     * 0 indicates left side
+     * 1 indicates right side
+     */
+    int startingSide;
+
 };
 
 

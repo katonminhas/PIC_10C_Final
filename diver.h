@@ -5,6 +5,7 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 #include <QGraphicsItem>
+#include <QKeyEvent>
 
 
 
@@ -20,6 +21,10 @@ public:
     void keyPressEvent(QKeyEvent* event);
 
 
+
+public slots:
+
+    void spawn();
 
 
 private:
