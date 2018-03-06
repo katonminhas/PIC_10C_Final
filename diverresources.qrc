@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>OceanBackground.png</file>
+        <file>leftShark.png</file>
+        <file>rightShark.png</file>
+    </qresource>
+</RCC>

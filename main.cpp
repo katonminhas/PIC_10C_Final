@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QTime>
 #include "diver.h"
 #include "game.h"
 #include "pearl.h"
@@ -13,7 +14,6 @@ int main(int argc, char *argv[])
 
 
     game = new Game();
-
 
     game->show();
 

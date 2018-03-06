@@ -1,13 +1,13 @@
 #ifndef SHARK_H
 #define SHARK_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QGraphicsItem>
 
 
 
-class Shark : public QObject, public QGraphicsRectItem{
+class Shark : public QObject, public QGraphicsPixmapItem{
 
     Q_OBJECT
 
