@@ -13,7 +13,7 @@ extern Game* game;
 
 
 
-Shark::Shark(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem() {
+Shark::Shark(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
 
 
     //set random y position

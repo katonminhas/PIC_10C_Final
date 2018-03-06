@@ -23,15 +23,11 @@ public:
 
 signals:
 
-
-    /************** void diverSurfaced signal ********************
+    /* Emits a signal indicating when the diver is underwater
      *
-     * Emits a signal each time the diver 'resurfaces'
-     * to a given y value (indicating the surface of
-     * the water). This then increases the level of the game
      *
      */
-    void diverSurfaced(int);
+    void underwater();
 
 
 
@@ -67,7 +63,7 @@ public slots:
      * the scene
      *
      *****************************************************/
-    void spawnPearl(int);
+    void spawnPearl(size_t);
 
 
 private:

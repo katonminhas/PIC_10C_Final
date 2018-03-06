@@ -28,13 +28,15 @@ SOURCES += \
     shark.cpp \
     diver.cpp \
     pearl.cpp \
-    game.cpp
+    game.cpp \
+    airbar.cpp
 
 HEADERS += \
     shark.h \
     diver.h \
     pearl.h \
-    game.h
+    game.h \
+    airbar.h
 
 FORMS += \
         mainwindow.ui

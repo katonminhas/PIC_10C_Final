@@ -12,6 +12,10 @@ extern Game* game;
 Diver::Diver(QGraphicsItem *parent) {
 
     setRect(0, 0, 100, 100);
+
+    if (pos().y() > 101){
+        emit underwater();
+    }
 }
 
 
@@ -147,7 +151,7 @@ void Diver::spawnShark() {
  *
  *****************************************************/
 
-void Diver::spawnPearl(int num_pearls_to_spawn) {
+void Diver::spawnPearl(size_t num_pearls_to_spawn) {
 
     for (size_t i = 0; i < num_pearls_to_spawn; ++i){
         Pearl* pearl = new Pearl();

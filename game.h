@@ -3,6 +3,7 @@
 
 
 #include "diver.h"
+#include "airbar.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -22,6 +23,9 @@ public:
 
 
     Diver* diver;
+
+
+    AirBar* bar;
 
 
     void increase_level();

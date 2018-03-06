@@ -1,6 +1,7 @@
 #include "game.h"
 #include "diver.h"
 #include "pearl.h"
+#include "airbar.h"
 
 #include <QTimer>
 #include <QTime>
@@ -10,7 +11,7 @@
 
 
 
-Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()), level(1), score(0) {
+Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()), bar(new AirBar()), level(1), score(0) {
 
 
 
@@ -75,6 +76,23 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
 
     //add the diver to the scene
     gameScene->addItem(diver);
+
+
+
+
+
+
+ //************************ Edit AirBar *************************//
+
+
+    //add to scene
+    gameScene->addItem(bar);
+
+    QObject::connect(diver, SIGNAL(underwater()), bar, SLOT(decrease()));
+
+
+
+
 
 
 
