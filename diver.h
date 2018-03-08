@@ -21,20 +21,8 @@ public:
     void keyPressEvent(QKeyEvent* event);
 
 
-signals:
-
-    /* Emits a signal indicating when the diver is underwater
-     *
-     *
-     */
-    void underwater();
-
-
-
 
 public slots:
-
-
 
 
 
@@ -47,8 +35,6 @@ public slots:
      *
      *******************************************************/
     void spawnShark();
-
-
 
 
 

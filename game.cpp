@@ -11,8 +11,7 @@
 
 
 
-Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()), bar(new AirBar()), level(1), score(0) {
-
+Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()), bar(new AirBar()), level(1), score(new Score()) {
 
 
     //seed the random number generator
@@ -20,17 +19,10 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
 
 
 
-
-
-
     //********************  Set the Scene  **********************//
 
     //set the size of the scene
     gameScene->setSceneRect(0, 0, 1972, 1442);
-
-
-
-
 
 
 
@@ -53,13 +45,8 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-
-
-
-
     //set the size of the view
     setFixedSize(1972, 1442);
-
 
 
 
@@ -68,7 +55,7 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
     //*******************  Make the Diver  *******************/
 
     //set starting position for the diver (middle-top)
-    diver->setPos(936, 101);
+    diver->setPos(936, 105);
 
     //make the diver focusable/set it to be the current focus
     diver->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -78,22 +65,8 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
     gameScene->addItem(diver);
 
 
-
-
-
-
- //************************ Edit AirBar *************************//
-
-
-    //add to scene
+    //add the airbar to scene
     gameScene->addItem(bar);
-
-    QObject::connect(diver, SIGNAL(underwater()), bar, SLOT(decrease()));
-
-
-
-
-
 
 
 
@@ -101,6 +74,7 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
 
     Pearl* firstPearl = new Pearl();
     gameScene->addItem(firstPearl);
+
 
 
     //********************  Spawn the Sharks  ********************//
@@ -113,6 +87,12 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
     sharkSpawnTimer->start(2000);
 
 
+
+    //********************* Add the scoreboard *********************//
+    gameScene->addItem(score);
+
+
+
 }
 
 
@@ -120,61 +100,31 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
 
 
 
-/***************** void Game::increase_level()  ********************
- *
- * increases the level of the game
- *
- *******************************************************************/
+
+
+
+
+//increases the level of the game
 void Game::increase_level() {
     ++level;
 }
 
 
-
-
-
-
-
-
-/******************* int Game::get_level() const ****************
- *
- * Accessor member function accessing the level of the game
- *
- **************************************************************/
+//Accessor member function accessing the level of the game
 int Game::get_level() const {
     return level;
 }
 
 
-
-
-
-/***************** void Game::increase_score()  ********************
- *
- * increases the level of the game
- *
- *******************************************************************/
+//increases the score
 void Game::increase_score() {
-    ++score;
+    score->increase();
 }
 
 
-
-
-
-
-
-
-
-
-
-/******************* int Game::get_score() const ****************
- *
- * Accessor member function accessing the score of the game
- *
- **************************************************************/
+// Accessor member function accessing the score of the game
 int Game::get_score() const {
-    return score;
+    return score->getScore();
 }
 
 

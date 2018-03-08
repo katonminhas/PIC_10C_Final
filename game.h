@@ -4,6 +4,7 @@
 
 #include "diver.h"
 #include "airbar.h"
+#include "score.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -28,8 +29,10 @@ public:
     AirBar* bar;
 
 
-    void increase_level();
+    Score* score;
 
+
+    void increase_level();
 
 
     int get_level() const;
@@ -59,15 +62,6 @@ private:
      * to collect.
      */
     int level;
-
-
-    /* Integer variable indicating the number of pearls
-     * the diver has collected.
-     *
-     * ***For Later: Add another variable keeping track
-     *               of the local high score
-     */
-    int score;
 
 
 };

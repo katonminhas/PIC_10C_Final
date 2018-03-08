@@ -26,7 +26,6 @@ Shark::Shark(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
 
 
 
-
     //spawn a shark from the left
     if (startingSide == 0){
         setPos(-100, randomY);
@@ -51,7 +50,6 @@ Shark::Shark(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
     //start the timer (call move every 50 ms)
     timer->start(50);
 
-
 }
 
 
@@ -67,8 +65,9 @@ Shark::Shark(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
  * moves left side sharks right and vice versa
  * contains code to remove and delete sharks once they exit the screen
  *
- **********************************************************************/
+ ***************************************************************/
 void Shark::move() {
+
 
     //indicates the speed of a shark
     int speed = 10;

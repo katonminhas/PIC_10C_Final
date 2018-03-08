@@ -11,13 +11,17 @@ extern Game* game;
 
 
 
-AirBar::AirBar(QGraphicsItem *parent) : QObject(), QGraphicsRectItem(parent), height(800) {
+AirBar::AirBar(QGraphicsItem *parent) : QObject(), QGraphicsRectItem(parent), height(800), yPos(220), airTimer(new QTimer()) {
 
     //set position and height of the rectangle
-    setRect(20, 220, 30, height);
+    setRect(20, yPos, 30, height);
 
     //fill in color
     setBrush(QBrush(Qt::green));
+
+
+    QObject::connect(airTimer, SIGNAL(timeout()), this, SLOT(decrease()));
+    airTimer->start(50);
 
     setZValue(1);
 }
@@ -29,12 +33,20 @@ AirBar::AirBar(QGraphicsItem *parent) : QObject(), QGraphicsRectItem(parent), he
 void AirBar::decrease() {
 
 
+    //if there is height to decrease, decrease it
     if (height > 0){
 
-        height -= 5;
+        if (game->diver->pos().y() > 105){
+            height --;
+            yPos++;
+            setRect(20, yPos, 30, height);
+        }
 
-        return;
+        else{
+            height = 800;
+            yPos = 220;
+            setRect(20, yPos, 30, height);
+        }
     }
-
 
 }

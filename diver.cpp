@@ -12,10 +12,6 @@ extern Game* game;
 Diver::Diver(QGraphicsItem *parent) {
 
     setRect(0, 0, 100, 100);
-
-    if (pos().y() > 101){
-        emit underwater();
-    }
 }
 
 
@@ -39,18 +35,14 @@ Diver::Diver(QGraphicsItem *parent) {
 void Diver::keyPressEvent(QKeyEvent *event) {
 
 
-
     //Code to see if the diver collides with pearl
     QList<QGraphicsItem*> colliding_items = collidingItems();
 
 
 
 
-
-
     //if one of the colliding items is a pearl remove the pearl
     for (int i = 0, n = colliding_items.size(); i < n; ++i){
-
 
         if (typeid(*(colliding_items[i])) == typeid(Pearl)) {
 
@@ -59,6 +51,9 @@ void Diver::keyPressEvent(QKeyEvent *event) {
 
             //delete pearl
             delete colliding_items[i];
+
+            //increase the score
+            game->increase_score();
 
             return;
         }
@@ -70,7 +65,7 @@ void Diver::keyPressEvent(QKeyEvent *event) {
 
 
     //if the diver surfaces, increase the level and spawn new pearls
-    if (pos().y() < 101 && event->key() == Qt::Key_Up){
+    if (pos().y() < 106 && event->key() == Qt::Key_Up){
 
         //increase the level
         game->increase_level();
@@ -105,8 +100,8 @@ void Diver::keyPressEvent(QKeyEvent *event) {
     }
     //Up (easier to go up)
     else if (event->key() == Qt::Key_Up){
-        if (pos().y() > 99){
-            setPos(x(), y() -20);
+        if (pos().y() > 104) {
+            setPos(x(), y() - 20);
         }
 
     }

@@ -26,6 +26,9 @@ private:
 
 
     size_t height;
+    size_t yPos;
+
+    QTimer* airTimer;
 
 
 
