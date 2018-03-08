@@ -2,14 +2,14 @@
 #define DIVER_H
 
 
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QGraphicsItem>
 #include <QKeyEvent>
 
 
 
-class Diver : public QObject, public QGraphicsRectItem{
+class Diver : public QObject, public QGraphicsPixmapItem{
 
 Q_OBJECT
 
@@ -55,6 +55,11 @@ public slots:
 private:
 
 
+    //all possible diver images
+    QPixmap diverRight, diverLeft, diverUp, diverDown;
+
+
+    QPixmap currentDiver;
 
 };
 

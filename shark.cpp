@@ -26,18 +26,18 @@ Shark::Shark(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
 
 
 
-    //spawn a shark from the left
+    //spawn a shark from the left (start them off screen)
     if (startingSide == 0){
-        setPos(-100, randomY);
-        setPixmap(QPixmap(":/Images/rightShark.png"));
+        setPos(-400, randomY);
+        setPixmap(QPixmap(":/images/rightSharkImage.png"));
     }
     //spawn a shark from the right
     else {
         setPos(1972, randomY);
-        setPixmap(QPixmap(":/Images/leftShark.png"));
+        setPixmap(QPixmap(":/images/leftSharkImage.png"));
     }
 
-    setScale(0.3);
+    setScale(0.6);
 
 
 
@@ -70,7 +70,7 @@ void Shark::move() {
 
 
     //indicates the speed of a shark
-    int speed = 10;
+    int speed = 5;
 
 
     //if the shark is starting from the left, move right
@@ -85,7 +85,7 @@ void Shark::move() {
 
 
     //destroys left-moving sharks
-    if (startingSide == 1 && pos().x() > 1972){
+    if (startingSide == 1 && pos().x() < -400){
 
         //remove the shark from the scene
         scene()->removeItem(this);
@@ -95,7 +95,7 @@ void Shark::move() {
     }
 
     //destroy right-moving sharks
-    else if (startingSide == 0 && pos().x() < -100){
+    else if (startingSide == 0 && pos().x() > 1972){
 
         //remove shark from the scene
         scene()->removeItem(this);

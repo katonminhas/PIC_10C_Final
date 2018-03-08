@@ -44,4 +44,4 @@ FORMS += \
         mainwindow.ui
 
 RESOURCES += \
-    diverresources.qrc
+    gameresources.qrc

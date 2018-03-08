@@ -2,6 +2,7 @@
 #include "game.h"
 #include <QGraphicsScene>
 #include <QList>
+#include <QGraphicsPixmapItem>
 #include "shark.h"
 #include "pearl.h"
 
@@ -9,9 +10,12 @@
 extern Game* game;
 
 
-Diver::Diver(QGraphicsItem *parent) {
+Diver::Diver(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent), diverRight(":/images/scubaRight.png"),
+    diverLeft(":/images/scubaLeft.png"), diverUp(":/images/scubaUp.png"), diverDown(":/images/scubaDown.png")
 
-    setRect(0, 0, 100, 100);
+{
+    setPixmap(diverRight);
+    setScale(0.3);
 }
 
 
@@ -65,11 +69,13 @@ void Diver::keyPressEvent(QKeyEvent *event) {
 
 
     //if the diver surfaces, increase the level and spawn new pearls
-    if (pos().y() < 106 && event->key() == Qt::Key_Up){
+    //switch graphic back to scubaRight
+    if (pos().y() < 110 && event->key() == Qt::Key_Up){
 
         //increase the level
         game->increase_level();
         spawnPearl(game->get_level());
+        setPixmap(diverRight);
 
     }
 
@@ -83,24 +89,28 @@ void Diver::keyPressEvent(QKeyEvent *event) {
     //Left
     if (event->key() == Qt::Key_Left){
         if (pos().x() > 0){
+            setPixmap(diverLeft);
             setPos(x() - 10, y());
         }
     }
     //Right
     else if (event->key() == Qt::Key_Right){
         if (pos().x() + 100 < 1972){
+            setPixmap(diverRight);
             setPos(x()+10, y());
         }
     }
     //Down (harder to go down)
     else if (event->key() == Qt::Key_Down){
         if (pos().y() + 100 < 1442){
+            setPixmap(diverDown);
             setPos(x(), y() + 5);
         }
     }
     //Up (easier to go up)
     else if (event->key() == Qt::Key_Up){
         if (pos().y() > 104) {
+            setPixmap(diverUp);
             setPos(x(), y() - 20);
         }
 

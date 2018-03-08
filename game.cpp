@@ -29,7 +29,7 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
     //****************** Load Background Image *******************//
 
     //Background image is 986x721
-    QImage backgroundImage(":/Images/OceanBackground.png");
+    QImage backgroundImage(":/images/OceanBackground.png");
 
     QImage backgroundImageScaled = backgroundImage.scaled(1972, 1442, Qt::IgnoreAspectRatio);
 
@@ -76,22 +76,19 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
     gameScene->addItem(firstPearl);
 
 
-
     //********************  Spawn the Sharks  ********************//
 
     QTimer* sharkSpawnTimer = new QTimer();
     //connect the spawning of sharks to the timeout of a timer
     QObject::connect(sharkSpawnTimer, SIGNAL(timeout()), diver, SLOT(spawnShark()));
 
-    //start the timer to spawn sharks every 2 seconds
-    sharkSpawnTimer->start(2000);
+    //start the timer to spawn sharks every 5 seconds
+    sharkSpawnTimer->start(5000);
 
 
 
     //********************* Add the scoreboard *********************//
     gameScene->addItem(score);
-
-
 
 }
 

@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>leftSharkImage.png</file>
+        <file>OceanBackground.png</file>
+        <file>rightSharkImage.png</file>
+        <file>scubaRight.png</file>
+        <file>scubaDown.png</file>
+        <file>scubaLeft.png</file>
+        <file>scubaUp.png</file>
+    </qresource>
+</RCC>
