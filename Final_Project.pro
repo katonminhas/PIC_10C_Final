@@ -30,7 +30,8 @@ SOURCES += \
     pearl.cpp \
     game.cpp \
     airbar.cpp \
-    score.cpp
+    score.cpp \
+    titlescreen.cpp
 
 HEADERS += \
     shark.h \
@@ -38,7 +39,8 @@ HEADERS += \
     pearl.h \
     game.h \
     airbar.h \
-    score.h
+    score.h \
+    titlescreen.h
 
 FORMS += \
         mainwindow.ui

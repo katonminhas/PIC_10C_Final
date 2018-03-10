@@ -15,7 +15,8 @@ Diver::Diver(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent), di
 
 {
     setPixmap(diverRight);
-    setScale(0.3);
+    setScale(0.3);  //size of diver is now 179.4 x 88.5
+    setShapeMode(BoundingRectShape);
 }
 
 
@@ -65,9 +66,6 @@ void Diver::keyPressEvent(QKeyEvent *event) {
     }
 
 
-
-
-
     //if the diver surfaces, increase the level and spawn new pearls
     //switch graphic back to scubaRight
     if (pos().y() < 110 && event->key() == Qt::Key_Up){
@@ -80,38 +78,38 @@ void Diver::keyPressEvent(QKeyEvent *event) {
     }
 
 
-
-
-
-
     //move the diver
 
     //Left
     if (event->key() == Qt::Key_Left){
         if (pos().x() > 0){
-            setPixmap(diverLeft);
             setPos(x() - 10, y());
+            setPixmap(diverLeft);
+
         }
     }
     //Right
     else if (event->key() == Qt::Key_Right){
         if (pos().x() + 100 < 1972){
-            setPixmap(diverRight);
             setPos(x()+10, y());
+            setPixmap(diverRight);
+
         }
     }
     //Down (harder to go down)
     else if (event->key() == Qt::Key_Down){
-        if (pos().y() + 100 < 1442){
-            setPixmap(diverDown);
+        if (pos().y() + 140 < 1442){
             setPos(x(), y() + 5);
+            setPixmap(diverDown);
+
         }
     }
     //Up (easier to go up)
     else if (event->key() == Qt::Key_Up){
         if (pos().y() > 104) {
-            setPixmap(diverUp);
             setPos(x(), y() - 20);
+            setPixmap(diverUp);
+
         }
 
     }

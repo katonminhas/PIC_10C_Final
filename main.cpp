@@ -1,17 +1,19 @@
 #include <QApplication>
 #include <QTime>
-#include "diver.h"
 #include "game.h"
-#include "pearl.h"
-#include "shark.h"
+#include "titlescreen.h"
+
 
 Game* game;
+
+TitleScreen* title;
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    title = new TitleScreen();
 
     game = new Game();
 

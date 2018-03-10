@@ -5,10 +5,10 @@
 #include "diver.h"
 #include "airbar.h"
 #include "score.h"
+#include "titlescreen.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
-
 
 
 
@@ -21,6 +21,9 @@ public:
 
 
     QGraphicsScene* gameScene;
+
+
+    TitleScreen* titleScene;
 
 
     Diver* diver;
@@ -47,6 +50,10 @@ public:
 signals:
 
 
+
+public slots:
+
+    void startGame();
 
 
 

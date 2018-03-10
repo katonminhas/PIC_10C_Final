@@ -11,18 +11,18 @@
 
 
 
-Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()), bar(new AirBar()), level(1), score(new Score()) {
+Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), titleScene(new TitleScreen()), diver(new Diver()), bar(new AirBar()), level(1), score(new Score()) {
 
 
     //seed the random number generator
     qsrand(QTime::currentTime().msecsSinceStartOfDay());
 
 
-
     //********************  Set the Scene  **********************//
 
     //set the size of the scene
     gameScene->setSceneRect(0, 0, 1972, 1442);
+
 
 
 
@@ -38,10 +38,13 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
 
 
 
+    //make title scene the scene to visualize
+    setScene(titleScene);
 
 
-    //make the scene the scene to visualize
-    setScene(gameScene);
+    QObject::connect(titleScene->startButton, SIGNAL(pressed()), this, SLOT(startGame());
+
+
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -61,11 +64,11 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
     diver->setFlag(QGraphicsItem::ItemIsFocusable);
     diver->setFocus();
 
-    //add the diver to the scene
+    //add the diver to game scene
     gameScene->addItem(diver);
 
 
-    //add the airbar to scene
+    //add the airbar to game scene
     gameScene->addItem(bar);
 
 
@@ -119,9 +122,20 @@ void Game::increase_score() {
 }
 
 
+
 // Accessor member function accessing the score of the game
 int Game::get_score() const {
     return score->getScore();
+}
+
+
+
+
+//Displays the game to the screen
+void Game::startGame()
+{
+
+    setScene(gameScene);
 }
 
 
