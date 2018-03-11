@@ -6,12 +6,26 @@
 #include <QTimer>
 #include <QTime>
 #include <QGraphicsScene>
+#include <QPushButton>
 
 #include <QImage>
 
 
 
-Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), titleScene(new TitleScreen()), diver(new Diver()), bar(new AirBar()), level(1), score(new Score()) {
+Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()), bar(new AirBar()), level(1),
+    score(new Score())
+{
+
+
+    //****************** Load Background Image ******************* //
+    //Background image is 986x721
+    QImage backgroundImage(":/images/OceanBackground.png");
+
+    QImage backgroundImageScaled = backgroundImage.scaled(1972, 1442, Qt::IgnoreAspectRatio);
+
+    QBrush* backBrush = new QBrush(backgroundImageScaled);
+    gameScene->setBackgroundBrush(*backBrush);
+
 
 
     //seed the random number generator
@@ -23,82 +37,13 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), titleScene(new Ti
     //set the size of the scene
     gameScene->setSceneRect(0, 0, 1972, 1442);
 
-
-
-
-    //****************** Load Background Image *******************//
-
-    //Background image is 986x721
-    QImage backgroundImage(":/images/OceanBackground.png");
-
-    QImage backgroundImageScaled = backgroundImage.scaled(1972, 1442, Qt::IgnoreAspectRatio);
-
-    QBrush* backBrush = new QBrush(backgroundImageScaled);
-    gameScene->setBackgroundBrush(*backBrush);
-
-
-
-    //make title scene the scene to visualize
-    setScene(titleScene);
-
-
-    QObject::connect(titleScene->startButton, SIGNAL(pressed()), this, SLOT(startGame());
-
-
+    setScene(gameScene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     //set the size of the view
     setFixedSize(1972, 1442);
-
-
-
-
-
-    //*******************  Make the Diver  *******************/
-
-    //set starting position for the diver (middle-top)
-    diver->setPos(936, 105);
-
-    //make the diver focusable/set it to be the current focus
-    diver->setFlag(QGraphicsItem::ItemIsFocusable);
-    diver->setFocus();
-
-    //add the diver to game scene
-    gameScene->addItem(diver);
-
-
-    //add the airbar to game scene
-    gameScene->addItem(bar);
-
-
-
-    //********************  Spawn the first Pearl  ********************/
-
-    Pearl* firstPearl = new Pearl();
-    gameScene->addItem(firstPearl);
-
-
-    //********************  Spawn the Sharks  ********************//
-
-    QTimer* sharkSpawnTimer = new QTimer();
-    //connect the spawning of sharks to the timeout of a timer
-    QObject::connect(sharkSpawnTimer, SIGNAL(timeout()), diver, SLOT(spawnShark()));
-
-    //start the timer to spawn sharks every 5 seconds
-    sharkSpawnTimer->start(5000);
-
-
-
-    //********************* Add the scoreboard *********************//
-    gameScene->addItem(score);
-
 }
-
-
-
-
-
 
 
 
@@ -129,14 +74,106 @@ int Game::get_score() const {
 }
 
 
+void Game::startGame() {
 
 
-//Displays the game to the screen
-void Game::startGame()
-{
+    //*******************  Make the Diver  *******************/
 
-    setScene(gameScene);
+    //set starting position for the diver (middle-top)
+    diver->setPos(936, 105);
+
+    //make the diver focusable/set it to be the current focus
+    diver->setFlag(QGraphicsItem::ItemIsFocusable);
+    diver->setFocus();
+
+    //add the diver to game scene
+    gameScene->addItem(diver);
+
+    //add the airbar to game scene
+    gameScene->addItem(bar);
+
+
+    //********************  Spawn the first Pearl  ********************/
+
+    Pearl* firstPearl = new Pearl();
+    gameScene->addItem(firstPearl);
+
+
+    //********************  Spawn the Sharks  ********************//
+
+    QTimer* sharkSpawnTimer = new QTimer();
+
+    //connect the spawning of sharks to the timeout of a timer
+    QObject::connect(sharkSpawnTimer, SIGNAL(timeout()), diver, SLOT(spawnShark()));
+
+    //start the timer to spawn sharks every 5 seconds
+    sharkSpawnTimer->start(5000);
+
+
+    //********************* Add the scoreboard *********************//
+    gameScene->addItem(score);
+
+
 }
+
+
+
+void Game::displayMainMenu() {
+
+
+    QGraphicsTextItem* titleText = new QGraphicsTextItem(QString("Title of the Game!!!"));
+
+    titleText->setPos(986 - (titleText->boundingRect().width() / 2), 250);
+
+    QFont titleFont("times", 48);
+
+    titleText->setFont(titleFont);
+
+    //add to scene
+    gameScene->addItem(titleText);
+
+
+    //Establish a font for the buttons (font = times, 16pt, demibold, italics = false)
+    QFont buttonFont("times", 16, 63, false);
+
+
+    //make the start button
+    QPushButton* startButton = new QPushButton();
+    //make the exit button
+    QPushButton* exitButton = new QPushButton();
+
+
+    // ******************* add buttons to the scene ******************//
+    //split screen into thirds
+    startButton->setGeometry(507, 920, 300, 150);
+    startButton->setFont(buttonFont);
+    startButton->setText("Start Game");
+
+    exitButton->setGeometry(1014, 920, 300, 150);
+    exitButton->setFont(buttonFont);
+    exitButton->setText("Exit");
+
+    gameScene->addWidget(startButton);
+    gameScene->addWidget(exitButton);
+
+
+    //connect buttons to slots
+    QObject::connect(startButton, SIGNAL(pressed()), this, SLOT(startGame()));
+    QObject::connect(exitButton, SIGNAL(pressed()), this, SLOT(close()));
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

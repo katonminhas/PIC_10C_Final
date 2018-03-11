@@ -5,14 +5,18 @@
 #include "diver.h"
 #include "airbar.h"
 #include "score.h"
-#include "titlescreen.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QPushButton>
+#include <QGraphicsTextItem>
+#include "stdlib.h"
 
 
 
 class Game : public QGraphicsView {
+
+    Q_OBJECT
 
 public:
 
@@ -21,9 +25,6 @@ public:
 
 
     QGraphicsScene* gameScene;
-
-
-    TitleScreen* titleScene;
 
 
     Diver* diver;
@@ -47,15 +48,17 @@ public:
     int get_score() const;
 
 
+    void displayMainMenu();
+
+
 signals:
 
 
 
 public slots:
 
+
     void startGame();
-
-
 
 
 private:
