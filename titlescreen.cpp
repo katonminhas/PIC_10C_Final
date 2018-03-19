@@ -4,8 +4,7 @@
 #include <QString>
 #include <QGraphicsTextItem>
 #include <QImage>
-
-#include "match.h"
+#include "game.h"
 
 extern Game* game;
 

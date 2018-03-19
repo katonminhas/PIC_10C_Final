@@ -6,8 +6,6 @@
 #include <QGraphicsTextItem>
 #include <QImage>
 #include "game.h"
-#include "match.h"
-
 
 extern Game* game;
 

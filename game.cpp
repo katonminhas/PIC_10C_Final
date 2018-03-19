@@ -95,7 +95,6 @@ Game::Game(QWidget *parent) :
     //closes game if diver hit's a shark
     QObject::connect(diver, SIGNAL(hitShark()), this, SLOT(close()));
 
-
 }
 
 

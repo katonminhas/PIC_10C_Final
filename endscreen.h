@@ -5,7 +5,6 @@
 #include <QPushButton>
 #include <QGraphicsScene>
 
-#include "match.h"
 
 namespace End {
 
@@ -19,10 +18,6 @@ namespace End {
         QGraphicsScene* endScene;
 
         QPushButton* startButton;
-
-    signals:
-
-        void buttonPressed();
 
     private:
 

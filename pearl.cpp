@@ -1,8 +1,7 @@
 #include "pearl.h"
 #include "stdlib.h"
 #include <QGraphicsScene>
-#include "match.h"
-
+#include "game.h"
 
 extern Game* game;
 
