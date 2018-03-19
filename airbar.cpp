@@ -1,6 +1,6 @@
 #include "airbar.h"
 
-#include "game.h"
+#include "match.h"
 
 #include <QGraphicsRectItem>
 
@@ -8,7 +8,6 @@
 
 
 extern Game* game;
-
 
 
 AirBar::AirBar(QGraphicsItem *parent) : QObject(), QGraphicsRectItem(parent), height(800), yPos(220), airTimer(new QTimer()) {

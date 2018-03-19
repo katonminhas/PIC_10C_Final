@@ -41,7 +41,7 @@ public:
     void increase_score();
 
 
-    int get_score() const;
+    int get_score();
 
 
 signals:
@@ -52,14 +52,10 @@ signals:
 
 public slots:
 
-    void startGame();
 
-
-
-
+    void resetGame();
 
 private:
-
 
 
     /* Integer variable indicating the current level
@@ -70,9 +66,6 @@ private:
      */
     int level;
 
-
-
-    bool isOver;
 
 
 };

@@ -2,6 +2,8 @@
 #include "diver.h"
 #include "pearl.h"
 #include "airbar.h"
+#include "titlescreen.h"
+#include "endscreen.h"
 
 #include <QTimer>
 #include <QTime>
@@ -11,17 +13,19 @@
 
 
 
+extern Title::TitleScreen* mainMenu;
+extern End::EndScreen* endMenu;
+
+
+
 Game::Game(QWidget *parent) :
     QGraphicsView(parent),
     gameScene(new QGraphicsScene()),
     diver(new Diver()),
     bar(new AirBar()),
     level(1),
-    score(new Score()),
-    isOver(true)
+    score(new Score())
 {
-
-
     //seed the random number generator
     qsrand(QTime::currentTime().msecsSinceStartOfDay());
 
@@ -30,7 +34,6 @@ Game::Game(QWidget *parent) :
 
     //set the size of the scene
     gameScene->setSceneRect(0, 0, 1972, 1442);
-
 
 
     //****************** Load Background Image *******************//
@@ -45,8 +48,6 @@ Game::Game(QWidget *parent) :
 
 
 
-
-
     //make the scene the scene to visualize
     setScene(gameScene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -54,10 +55,6 @@ Game::Game(QWidget *parent) :
 
     //set the size of the view
     setFixedSize(1972, 1442);
-
-
-
-
 
     //*******************  Make the Diver  *******************/
 
@@ -94,18 +91,12 @@ Game::Game(QWidget *parent) :
     //********************* Add the scoreboard *********************//
     gameScene->addItem(score);
 
-}
 
-
-
-
-void Game::startGame() {
-
-
+    //closes game if diver hit's a shark
+    QObject::connect(diver, SIGNAL(hitShark()), this, SLOT(close()));
 
 
 }
-
 
 
 
@@ -131,8 +122,29 @@ void Game::increase_score() {
 
 
 // Accessor member function accessing the score of the game
-int Game::get_score() const {
+int Game::get_score() {
     return score->getScore();
+}
+
+
+
+
+
+void Game::resetGame() {
+
+    scene()->removeItem(diver);
+    delete diver;
+    diver = new Diver();
+
+    scene()->removeItem(bar);
+    delete bar;
+    bar = new AirBar();
+
+
+    scene()->removeItem(score);
+    delete score;
+    score = new Score();
+
 }
 
 

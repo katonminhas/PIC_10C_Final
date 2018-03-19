@@ -4,6 +4,8 @@
 
 
 
+
+
 Score::Score(QGraphicsItem *parent) : score(0) {
 
     //set position

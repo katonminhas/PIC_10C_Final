@@ -3,6 +3,7 @@
 #include <qglobal.h>
 #include "stdlib.h"
 #include "game.h"
+#include "match.h"
 #include <QTimer>
 #include <QTime>
 #include <QImage>

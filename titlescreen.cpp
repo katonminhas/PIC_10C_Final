@@ -5,7 +5,7 @@
 #include <QGraphicsTextItem>
 #include <QImage>
 
-#include "game.h"
+#include "match.h"
 
 extern Game* game;
 
@@ -36,7 +36,6 @@ Title::TitleScreen::TitleScreen(QWidget *parent) :
 
 
     //****************** Load Background Image *******************//
-
     //Background image is 986x721
     QImage backgroundImage(":/images/OceanBackground.png");
 
@@ -65,11 +64,15 @@ Title::TitleScreen::TitleScreen(QWidget *parent) :
     titleScene->addWidget(exitButton);  //add to scene
 
 
+    //Connect buttons
+    QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(show()));
+    QObject::connect(exitButton, SIGNAL(pressed()), this, SLOT(close()));
+    QObject::connect(startButton, SIGNAL(pressed()), this, SLOT(close()));
+
 
     //****************** Visualize the scene ************************//
     setScene(titleScene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
 
 }

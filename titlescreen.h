@@ -17,12 +17,13 @@ namespace Title{
 
         QGraphicsScene* titleScene;
 
-
-    private:
-
         QPushButton* startButton;
 
         QPushButton* exitButton;
+
+    private:
+
+
 
         QGraphicsTextItem* titleText;
 

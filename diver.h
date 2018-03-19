@@ -21,6 +21,11 @@ public:
     void keyPressEvent(QKeyEvent* event);
 
 
+signals:
+
+
+    void hitShark();
+
 
 public slots:
 

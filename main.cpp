@@ -6,25 +6,21 @@
 #include "titlescreen.h"
 #include "pearl.h"
 #include "shark.h"
+#include "match.h"
 
 Game* game;
-Title::TitleScreen* MainMenu;
-End::EndScreen* EndMenu;
-
-
+Title::TitleScreen* mainMenu;
+End::EndScreen* endMenu;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    //Construct the game and both menus
     game = new Game();
-    MainMenu = new Title::TitleScreen();
-    EndMenu = new End::EndScreen();
+    mainMenu = new Title::TitleScreen();
+    endMenu = new End::EndScreen();
 
-
-    MainMenu->show();
-
+    mainMenu->show();
 
     return a.exec();
 }

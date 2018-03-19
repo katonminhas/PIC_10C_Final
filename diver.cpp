@@ -5,9 +5,12 @@
 #include <QGraphicsPixmapItem>
 #include "shark.h"
 #include "pearl.h"
+#include "match.h"
+#include "endscreen.h"
 
 
 extern Game* game;
+extern End::EndScreen* endMenu;
 
 
 Diver::Diver(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent), diverRight(":/images/scubaRight.png"),
@@ -62,6 +65,19 @@ void Diver::keyPressEvent(QKeyEvent *event) {
             return;
         }
 
+    }
+
+    //if one of the colliding items is a shark, emit hit shark
+    for (size_t i = 0, n = colliding_items.size(); i < n; ++i){
+
+        if (typeid(*(colliding_items[i])) == typeid(Shark)){
+
+            scene()->removeItem(colliding_items[i]);
+
+            delete colliding_items[i];
+
+            emit hitShark();
+        }
     }
 
 
