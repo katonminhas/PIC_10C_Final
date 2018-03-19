@@ -8,9 +8,10 @@
 extern Game* game;
 
 
-
-
-Pearl::Pearl(QGraphicsItem *parent) : QObject(), QGraphicsRectItem() {
+Pearl::Pearl(QGraphicsItem *parent) :
+    QObject(),
+    QGraphicsRectItem(parent)
+{
 
     int randX = qrand() %  1972;
     int randY = qrand() % 300 + 1100;

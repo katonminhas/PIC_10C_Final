@@ -11,12 +11,19 @@
 
 
 
-Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()), bar(new AirBar()), level(1), score(new Score()) {
+Game::Game(QWidget *parent) :
+    QGraphicsView(parent),
+    gameScene(new QGraphicsScene()),
+    diver(new Diver()),
+    bar(new AirBar()),
+    level(1),
+    score(new Score()),
+    isOver(true)
+{
 
 
     //seed the random number generator
     qsrand(QTime::currentTime().msecsSinceStartOfDay());
-
 
 
     //********************  Set the Scene  **********************//
@@ -77,15 +84,12 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
 
 
     //********************  Spawn the Sharks  ********************//
-
     QTimer* sharkSpawnTimer = new QTimer();
     //connect the spawning of sharks to the timeout of a timer
     QObject::connect(sharkSpawnTimer, SIGNAL(timeout()), diver, SLOT(spawnShark()));
 
     //start the timer to spawn sharks every 5 seconds
     sharkSpawnTimer->start(5000);
-
-
 
     //********************* Add the scoreboard *********************//
     gameScene->addItem(score);
@@ -94,6 +98,13 @@ Game::Game(QWidget *parent) : gameScene(new QGraphicsScene()), diver(new Diver()
 
 
 
+
+void Game::startGame() {
+
+
+
+
+}
 
 
 
@@ -123,6 +134,8 @@ void Game::increase_score() {
 int Game::get_score() const {
     return score->getScore();
 }
+
+
 
 
 

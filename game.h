@@ -47,6 +47,13 @@ public:
 signals:
 
 
+    void endGame();
+
+
+public slots:
+
+    void startGame();
+
 
 
 
@@ -62,6 +69,10 @@ private:
      * to collect.
      */
     int level;
+
+
+
+    bool isOver;
 
 
 };
