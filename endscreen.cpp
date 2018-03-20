@@ -7,7 +7,12 @@
 #include <QImage>
 #include "game.h"
 
+
+
+
 extern Game* game;
+
+
 
 namespace End {
 
@@ -76,7 +81,6 @@ End::EndScreen::EndScreen(QWidget *parent) :
     endScene->addWidget(exitButton);  //add to scene
 
 
-
     //****************** Visualize the scene ************************//
     setScene(endScene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -90,9 +94,10 @@ End::EndScreen::EndScreen(QWidget *parent) :
 
 
     //Connect buttons
-    QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(show()));
-    //QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(resetGame()));
-    QObject::connect(startButton, SIGNAL(pressed()), this, SLOT(close()));
+    //QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(show()));
+    QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(resetGame()));
+    //QObject::connect(startButton, SIGNAL(pressed()), this, SLOT(close()));
+
     QObject::connect(exitButton, SIGNAL(pressed()), this, SLOT(close()));
 
 }

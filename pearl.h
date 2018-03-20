@@ -15,8 +15,6 @@ public:
 
     Pearl(QGraphicsItem* parent = 0);
 
-
-
 };
 
 

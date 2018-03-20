@@ -6,10 +6,10 @@
 #include <QGraphicsScene>
 
 
+
 namespace End {
 
     class EndScreen : public QGraphicsView {
-
 
     public:
 
@@ -28,6 +28,7 @@ namespace End {
         QGraphicsTextItem* scoreText;
 
         bool startisPressed;
+
 
     };
 

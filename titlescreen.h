@@ -9,6 +9,7 @@ namespace Title{
 
     class TitleScreen : public QGraphicsView {
 
+        Q_OBJECT
 
     public:
 

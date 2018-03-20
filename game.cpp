@@ -18,35 +18,39 @@ extern End::EndScreen* endMenu;
 
 
 
-Game::Game(QWidget *parent) :
-    QGraphicsView(parent),
-    gameScene(new QGraphicsScene()),
-    diver(new Diver()),
-    bar(new AirBar()),
-    level(1),
-    score(new Score())
-{
-    //seed the random number generator
-    qsrand(QTime::currentTime().msecsSinceStartOfDay());
+void formatScene(QGraphicsScene*& scene){
 
-
-    //********************  Set the Scene  **********************//
-
-    //set the size of the scene
-    gameScene->setSceneRect(0, 0, 1972, 1442);
+    scene->setSceneRect(0,0, 1972, 1442);
 
 
     //****************** Load Background Image *******************//
-
     //Background image is 986x721
     QImage backgroundImage(":/images/OceanBackground.png");
 
     QImage backgroundImageScaled = backgroundImage.scaled(1972, 1442, Qt::IgnoreAspectRatio);
 
     QBrush* backBrush = new QBrush(backgroundImageScaled);
-    gameScene->setBackgroundBrush(*backBrush);
+    scene->setBackgroundBrush(*backBrush);
+}
 
 
+
+Game::Game(QWidget *parent) :
+    QGraphicsView(parent),
+    gameScene(new QGraphicsScene())
+{
+
+
+    diver = new Diver();
+    score = new Score();
+    bar = new AirBar();
+    level = 1;
+
+    //seed the random number generator
+    qsrand(QTime::currentTime().msecsSinceStartOfDay());
+
+    //set up the scene
+    formatScene(gameScene);
 
     //make the scene the scene to visualize
     setScene(gameScene);
@@ -67,7 +71,6 @@ Game::Game(QWidget *parent) :
 
     //add the diver to the scene
     gameScene->addItem(diver);
-
 
     //add the airbar to scene
     gameScene->addItem(bar);
@@ -95,8 +98,12 @@ Game::Game(QWidget *parent) :
     //closes game if diver hit's a shark
     QObject::connect(diver, SIGNAL(hitShark()), this, SLOT(close()));
 
-}
 
+    //connect to button
+
+
+
+}
 
 
 
@@ -129,21 +136,42 @@ int Game::get_score() {
 
 
 
+void Game::startGame() {
+
+
+
+
+
+    show();
+}
+
+
+
+
+
 void Game::resetGame() {
 
-    scene()->removeItem(diver);
+    gameScene->removeItem(diver);
     delete diver;
     diver = new Diver();
 
-    scene()->removeItem(bar);
+    gameScene->removeItem(bar);
     delete bar;
     bar = new AirBar();
 
-
-    scene()->removeItem(score);
+    gameScene->removeItem(score);
     delete score;
     score = new Score();
 
+    delete gameScene;
+    gameScene = new QGraphicsScene();
+    formatScene(gameScene);
+
+    gameScene->addItem(diver);
+    gameScene->addItem(bar);
+    gameScene->addItem(score);
+
+    show();
 }
 
 

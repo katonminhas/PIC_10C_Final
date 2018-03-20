@@ -8,11 +8,14 @@
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QObject>
 
 
 
 
 class Game : public QGraphicsView {
+
+    //Q_OBJECT
 
 public:
 
@@ -52,8 +55,11 @@ signals:
 
 public slots:
 
+    void startGame();
+
 
     void resetGame();
+
 
 private:
 
