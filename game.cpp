@@ -18,39 +18,16 @@ extern End::EndScreen* endMenu;
 
 
 
-void formatScene(QGraphicsScene*& scene){
-
-    scene->setSceneRect(0,0, 1972, 1442);
-
-
-    //****************** Load Background Image *******************//
-    //Background image is 986x721
-    QImage backgroundImage(":/images/OceanBackground.png");
-
-    QImage backgroundImageScaled = backgroundImage.scaled(1972, 1442, Qt::IgnoreAspectRatio);
-
-    QBrush* backBrush = new QBrush(backgroundImageScaled);
-    scene->setBackgroundBrush(*backBrush);
-}
-
-
-
 Game::Game(QWidget *parent) :
     QGraphicsView(parent),
-    gameScene(new QGraphicsScene())
+    gameScene(nullptr),
+    diver(nullptr),
+    gameScore(nullptr),
+    bar(nullptr),
+    sharkSpawnTimer(new QTimer())
 {
-
-
-    diver = new Diver();
-    score = new Score();
-    bar = new AirBar();
-    level = 1;
-
-    //seed the random number generator
-    qsrand(QTime::currentTime().msecsSinceStartOfDay());
-
     //set up the scene
-    formatScene(gameScene);
+    setUpScene();
 
     //make the scene the scene to visualize
     setScene(gameScene);
@@ -60,49 +37,71 @@ Game::Game(QWidget *parent) :
     //set the size of the view
     setFixedSize(1972, 1442);
 
-    //*******************  Make the Diver  *******************/
-
-    //set starting position for the diver (middle-top)
-    diver->setPos(936, 105);
-
-    //make the diver focusable/set it to be the current focus
-    diver->setFlag(QGraphicsItem::ItemIsFocusable);
-    diver->setFocus();
-
-    //add the diver to the scene
-    gameScene->addItem(diver);
-
-    //add the airbar to scene
-    gameScene->addItem(bar);
-
-
-
-    //********************  Spawn the first Pearl  ********************/
-
-    Pearl* firstPearl = new Pearl();
-    gameScene->addItem(firstPearl);
-
-
-    //********************  Spawn the Sharks  ********************//
-    QTimer* sharkSpawnTimer = new QTimer();
-    //connect the spawning of sharks to the timeout of a timer
-    QObject::connect(sharkSpawnTimer, SIGNAL(timeout()), diver, SLOT(spawnShark()));
 
     //start the timer to spawn sharks every 5 seconds
     sharkSpawnTimer->start(5000);
 
-    //********************* Add the scoreboard *********************//
-    gameScene->addItem(score);
-
-
-    //closes game if diver hit's a shark
-    QObject::connect(diver, SIGNAL(hitShark()), this, SLOT(close()));
-
-
-    //connect to button
+}
 
 
 
+
+void Game::setUpDiver(){
+
+    diver = new Diver();
+
+    //*******************  Make the Diver  *******************/
+    //set starting position for the diver (middle-top)
+    diver->setPos(936, 105);
+    //make the diver focusable/set it to be the current focus
+    diver->setFlag(QGraphicsItem::ItemIsFocusable);
+    diver->setFocus();
+    //add the diver to the scene
+    gameScene->addItem(diver);
+
+
+}
+
+
+void Game::setUpScore() {
+
+    gameScore = new Score();
+
+    gameScene->addItem(gameScore);
+
+}
+
+
+void Game::setUpAirBar() {
+
+    bar = new AirBar();
+
+    //add the airbar to scene
+    gameScene->addItem(bar);
+}
+
+
+void Game::spawnFirstPearl() {
+    Pearl* firstPearl = new Pearl();
+    gameScene->addItem(firstPearl);
+}
+
+
+void Game::setUpScene(){
+
+    gameScene = new QGraphicsScene();
+
+    gameScene->setSceneRect(0,0, 1972, 1442);
+
+
+    //****************** Load Background Image *******************//
+    //Background image is 986x721
+    QImage backgroundImage(":/images/OceanBackground.png");
+
+    QImage backgroundImageScaled = backgroundImage.scaled(1972, 1442, Qt::IgnoreAspectRatio);
+
+    QBrush* backBrush = new QBrush(backgroundImageScaled);
+    gameScene->setBackgroundBrush(*backBrush);
 }
 
 
@@ -123,14 +122,18 @@ int Game::get_level() const {
 
 //increases the score
 void Game::increase_score() {
-    score->increase();
+    gameScore->increase();
 }
 
 
 // Accessor member function accessing the score of the game
 int Game::get_score() {
-    return score->getScore();
+    if (gameScore)
+        return gameScore->score;
+    else return 0;
 }
+
+
 
 
 
@@ -138,38 +141,57 @@ int Game::get_score() {
 
 void Game::startGame() {
 
+    //seed the random number generator
+    qsrand(QTime::currentTime().msecsSinceStartOfDay());
+
+    level = 1;
+
+    setUpDiver();
+
+    setUpScore();
+
+    setUpAirBar();
+
+    spawnFirstPearl();
+
+    //connect the spawning of sharks to the timeout of a timer
+    QObject::connect(sharkSpawnTimer, SIGNAL(timeout()), diver, SLOT(spawnShark()));
+
+    //closes game if diver hit's a shark
+    QObject::connect(diver, SIGNAL(hitShark()), this, SLOT(close()));
+    QObject::connect(diver, SIGNAL(hitShark()), endMenu, SLOT(show()));
 
 
-
-
-    show();
+    show();     //show the view
 }
-
-
-
 
 
 void Game::resetGame() {
 
+    //seed the random number generator
+    qsrand(QTime::currentTime().msecsSinceStartOfDay());
+
     gameScene->removeItem(diver);
-    delete diver;
-    diver = new Diver();
-
     gameScene->removeItem(bar);
+    gameScene->removeItem(gameScore);
+    delete diver;
     delete bar;
-    bar = new AirBar();
+    delete gameScore;
 
-    gameScene->removeItem(score);
-    delete score;
-    score = new Score();
+    setUpDiver();
+    setUpAirBar();
+    setUpScore();
+    spawnFirstPearl();
+    level = 1;
 
-    delete gameScene;
-    gameScene = new QGraphicsScene();
-    formatScene(gameScene);
+    setUpScene();
 
-    gameScene->addItem(diver);
-    gameScene->addItem(bar);
-    gameScene->addItem(score);
+    //connect the spawning of sharks to the timeout of a timer
+    QObject::connect(sharkSpawnTimer, SIGNAL(timeout()), diver, SLOT(spawnShark()));
+
+    //closes game if diver hit's a shark
+    QObject::connect(diver, SIGNAL(hitShark()), this, SLOT(close()));
+    QObject::connect(diver, SIGNAL(hitShark()), endMenu, SLOT(show()));
 
     show();
 }

@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QString>
 #include <QGraphicsTextItem>
+#include <QObject>
 #include <QImage>
 #include "game.h"
 
@@ -54,7 +55,14 @@ End::EndScreen::EndScreen(QWidget *parent) :
     int midpoint = width() / 2;
 
     //******************* Add the score text *************************//
-    QString scoreString = QString("Score: ") + QString::number(game->get_score());
+    QString scoreString;
+    if (game->gameScore){
+        scoreString = QString("Score: ") + QString::number(game->get_score());
+    }
+    else{
+        scoreString = QString("Score: 0");
+    }
+
     scoreText = new QGraphicsTextItem(scoreString);
     QFont scoreFont("impact", 24);
     scoreText->setFont(scoreFont);
@@ -86,17 +94,12 @@ End::EndScreen::EndScreen(QWidget *parent) :
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-
     //if shark gets hit show the end screen
     QObject::connect(game->diver, SIGNAL(hitShark()), this, SLOT(show()));
 
-
-
-
     //Connect buttons
-    //QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(show()));
     QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(resetGame()));
-    //QObject::connect(startButton, SIGNAL(pressed()), this, SLOT(close()));
+    QObject::connect(startButton, SIGNAL(pressed()), this, SLOT(close()));
 
     QObject::connect(exitButton, SIGNAL(pressed()), this, SLOT(close()));
 

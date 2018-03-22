@@ -16,10 +16,11 @@ public:
 
     int getScore() const;
 
+    int score;
 
 private:
 
-    int score;
+
 
 };
 

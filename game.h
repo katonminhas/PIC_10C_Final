@@ -15,7 +15,7 @@
 
 class Game : public QGraphicsView {
 
-    //Q_OBJECT
+    Q_OBJECT
 
 public:
 
@@ -23,16 +23,33 @@ public:
     Game(QWidget* parent = 0);
 
 
-    QGraphicsScene* gameScene;
+    virtual ~Game() {}
 
+
+    //The following members set up each element of the game
+    void setUpDiver();
+
+    void setUpScore();
+
+    void setUpAirBar();
+
+    void spawnFirstPearl();
+
+    void setUpScene();
+
+    void setUpGame();
+
+
+    QGraphicsScene* gameScene;
 
     Diver* diver;
 
-
     AirBar* bar;
 
+    Score* gameScore;
 
-    Score* score;
+
+
 
 
     void increase_level();
@@ -45,6 +62,10 @@ public:
 
 
     int get_score();
+
+
+
+
 
 
 signals:
@@ -71,6 +92,9 @@ private:
      * to collect.
      */
     int level;
+
+
+    QTimer* sharkSpawnTimer;
 
 
 

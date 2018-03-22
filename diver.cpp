@@ -94,11 +94,6 @@ void Diver::keyPressEvent(QKeyEvent *event) {
 
     }
 
-
-
-
-
-
     //move the diver
 
     //Left
@@ -153,9 +148,11 @@ void Diver::keyPressEvent(QKeyEvent *event) {
  *****************************************************/
 void Diver::spawnShark() {
 
-    //create a shark
-    Shark* shark = new Shark();
-    scene()->addItem(shark);
+    if (game->gameScene){
+        //create a shark
+        Shark* shark = new Shark();
+        game->gameScene->addItem(shark);
+    }
 
 }
 

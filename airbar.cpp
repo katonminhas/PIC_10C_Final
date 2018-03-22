@@ -31,20 +31,21 @@ AirBar::AirBar(QGraphicsItem *parent) : QObject(), QGraphicsRectItem(parent), he
 
 void AirBar::decrease() {
 
+    if (game->diver){
+        //if there is height to decrease, decrease it
+        if (height > 0){
 
-    //if there is height to decrease, decrease it
-    if (height > 0){
+            if (game->diver->pos().y() > 105){
+                height --;
+                yPos++;
+                setRect(20, yPos, 30, height);
+            }
 
-        if (game->diver->pos().y() > 105){
-            height --;
-            yPos++;
-            setRect(20, yPos, 30, height);
-        }
-
-        else{
-            height = 800;
-            yPos = 220;
-            setRect(20, yPos, 30, height);
+            else{
+                height = 800;
+                yPos = 220;
+                setRect(20, yPos, 30, height);
+            }
         }
     }
 

@@ -64,7 +64,7 @@ Title::TitleScreen::TitleScreen(QWidget *parent) :
 
 
     //Connect buttons
-    QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(show()));
+    QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(startGame()));
     QObject::connect(exitButton, SIGNAL(pressed()), this, SLOT(close()));
     QObject::connect(startButton, SIGNAL(pressed()), this, SLOT(close()));
 

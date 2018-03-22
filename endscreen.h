@@ -11,6 +11,8 @@ namespace End {
 
     class EndScreen : public QGraphicsView {
 
+        Q_OBJECT
+
     public:
 
         EndScreen(QWidget* parent = 0);
