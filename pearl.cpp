@@ -8,11 +8,25 @@ extern Game* game;
 
 Pearl::Pearl(QGraphicsItem *parent) :
     QObject(),
-    QGraphicsRectItem(parent)
+    QGraphicsPixmapItem(parent)
 {
-
     int randX = qrand() %  1972;
-    int randY = qrand() % 300 + 1100;
+    int randY = qrand() % 350 + 1050;
 
-    setRect(randX, randY, 20, 20);
+    setPixmap(QPixmap(":/images/pearlPic.png"));
+    setPos(randX, randY);
+
+    setScale(0.8);
+
+    //removes all the pearls when the game is over
+    QObject::connect(game->diver, SIGNAL(hitShark()), this, SLOT(deletePearl()));
+}
+
+
+void Pearl::deletePearl() {
+
+    if (game->gameScene){
+        game->gameScene->removeItem(this);
+        delete this;
+    }
 }

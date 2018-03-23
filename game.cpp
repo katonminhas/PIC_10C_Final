@@ -107,7 +107,6 @@ void Game::setUpScene(){
 
 
 
-
 //increases the level of the game
 void Game::increase_level() {
     ++level;
@@ -132,9 +131,6 @@ int Game::get_score() {
         return gameScore->score;
     else return 0;
 }
-
-
-
 
 
 

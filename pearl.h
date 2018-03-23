@@ -1,12 +1,12 @@
 #ifndef PEARL_H
 #define PEARL_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QGraphicsItem>
 
 
-class Pearl : public QObject, public QGraphicsRectItem {
+class Pearl : public QObject, public QGraphicsPixmapItem {
 
     Q_OBJECT
 
@@ -14,6 +14,12 @@ class Pearl : public QObject, public QGraphicsRectItem {
 public:
 
     Pearl(QGraphicsItem* parent = 0);
+
+
+public slots:
+
+
+    void deletePearl();
 
 };
 
