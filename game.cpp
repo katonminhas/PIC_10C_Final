@@ -24,6 +24,7 @@ Game::Game(QWidget *parent) :
     diver(nullptr),
     gameScore(nullptr),
     bar(nullptr),
+    boat(nullptr),
     sharkSpawnTimer(new QTimer())
 {
     //set up the scene
@@ -52,14 +53,12 @@ void Game::setUpDiver(){
 
     //*******************  Make the Diver  *******************/
     //set starting position for the diver (middle-top)
-    diver->setPos(936, 105);
+    diver->setPos(936, 160);
     //make the diver focusable/set it to be the current focus
     diver->setFlag(QGraphicsItem::ItemIsFocusable);
     diver->setFocus();
     //add the diver to the scene
     gameScene->addItem(diver);
-
-
 }
 
 
@@ -79,6 +78,17 @@ void Game::setUpAirBar() {
     //add the airbar to scene
     gameScene->addItem(bar);
 }
+
+
+void Game::setUpBoat(){
+
+    boat = new Boat();
+    boat->setPos(275, 5);
+    boat->setScale(0.3);
+    gameScene->addItem(boat);
+
+}
+
 
 
 void Game::spawnFirstPearl() {
@@ -147,6 +157,8 @@ void Game::startGame() {
     setUpScore();
 
     setUpAirBar();
+
+    setUpBoat();
 
     spawnFirstPearl();
 

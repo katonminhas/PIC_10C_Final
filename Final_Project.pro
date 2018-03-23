@@ -32,7 +32,8 @@ SOURCES += \
     airbar.cpp \
     score.cpp \
     titlescreen.cpp \
-    endscreen.cpp
+    endscreen.cpp \
+    boat.cpp
 
 HEADERS += \
     shark.h \
@@ -42,7 +43,8 @@ HEADERS += \
     airbar.h \
     score.h \
     titlescreen.h \
-    endscreen.h
+    endscreen.h \
+    boat.h
 
 FORMS += \
         mainwindow.ui

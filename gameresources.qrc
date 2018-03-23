@@ -8,5 +8,6 @@
         <file>scubaLeft.png</file>
         <file>scubaUp.png</file>
         <file>pearlPic.png</file>
+        <file>boat.png</file>
     </qresource>
 </RCC>

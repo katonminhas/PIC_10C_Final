@@ -35,12 +35,11 @@ void AirBar::decrease() {
         //if there is height to decrease, decrease it
         if (height > 0){
 
-            if (game->diver->pos().y() > 105){
+            if (game->diver->pos().y() > 160){
                 height --;
                 yPos++;
                 setRect(20, yPos, 30, height);
             }
-
             else{
                 height = 800;
                 yPos = 220;

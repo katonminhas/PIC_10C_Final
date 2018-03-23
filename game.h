@@ -5,6 +5,7 @@
 #include "diver.h"
 #include "airbar.h"
 #include "score.h"
+#include "boat.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -33,6 +34,8 @@ public:
 
     void setUpAirBar();
 
+    void setUpBoat();
+
     void spawnFirstPearl();
 
     void setUpScene();
@@ -48,7 +51,7 @@ public:
 
     Score* gameScore;
 
-
+    Boat* boat;
 
 
 
@@ -62,6 +65,7 @@ public:
 
 
     int get_score();
+
 
 
 
