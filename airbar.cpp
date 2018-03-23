@@ -31,15 +31,17 @@ AirBar::AirBar(QGraphicsItem *parent) : QObject(), QGraphicsRectItem(parent), he
 
 void AirBar::decrease() {
 
-    if (game->diver){
+    if (game->diver) {
+
         //if there is height to decrease, decrease it
         if (height > 0){
-
+            //if the diver is below the surface, decrease the airbar
             if (game->diver->pos().y() > 160){
                 height --;
                 yPos++;
                 setRect(20, yPos, 30, height);
             }
+            //if the diver surfaces, airbar is full
             else{
                 height = 800;
                 yPos = 220;

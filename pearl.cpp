@@ -16,7 +16,7 @@ Pearl::Pearl(QGraphicsItem *parent) :
     setPixmap(QPixmap(":/images/pearlPic.png"));
     setPos(randX, randY);
 
-    setScale(0.4);
+    setScale(0.6);
 
     //removes all the pearls when the game is over
     QObject::connect(game->diver, SIGNAL(hitShark()), this, SLOT(deletePearl()));

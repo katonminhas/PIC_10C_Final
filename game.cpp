@@ -90,7 +90,6 @@ void Game::setUpBoat(){
 }
 
 
-
 void Game::spawnFirstPearl() {
     Pearl* firstPearl = new Pearl();
     gameScene->addItem(firstPearl);
@@ -186,6 +185,8 @@ void Game::resetGame() {
     delete bar;
     delete gameScore;
 
+    startGame();
+/*
     setUpDiver();
     setUpAirBar();
     setUpScore();
@@ -194,6 +195,7 @@ void Game::resetGame() {
 
     setUpScene();
 
+    sharkSpawnTimer->start(5000);
     //connect the spawning of sharks to the timeout of a timer
     QObject::connect(sharkSpawnTimer, SIGNAL(timeout()), diver, SLOT(spawnShark()));
 
@@ -202,6 +204,8 @@ void Game::resetGame() {
     QObject::connect(diver, SIGNAL(hitShark()), endMenu, SLOT(show()));
 
     show();
+    */
+
 }
 
 

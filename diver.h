@@ -7,6 +7,9 @@
 #include <QGraphicsItem>
 #include <QKeyEvent>
 
+#include "pearl.h"
+#include "shark.h"
+
 
 
 class Diver : public QObject, public QGraphicsPixmapItem{
@@ -21,8 +24,17 @@ public:
     void keyPressEvent(QKeyEvent* event);
 
 
+    void pickUpPearl(QGraphicsItem* thePearl);
+
+
+    void dropPearl();
+
+
+
 signals:
 
+
+    void grabPearl();
 
     void hitShark();
 
@@ -40,6 +52,10 @@ public slots:
      *
      *******************************************************/
     void spawnShark();
+
+
+
+    void hitShark(Shark* theShark);
 
 
 
@@ -65,6 +81,12 @@ private:
 
 
     QPixmap currentDiver;
+
+    QGraphicsItem* currentPearl;
+
+    QGraphicsItem* currentShark;
+
+    bool hasPearl;
 
 };
 

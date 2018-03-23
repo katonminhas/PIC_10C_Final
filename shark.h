@@ -24,6 +24,11 @@ public slots:
     void move();
 
 
+signals:
+
+    void hitADiver(Shark*);
+
+
 private:
 
 

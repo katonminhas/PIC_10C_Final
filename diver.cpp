@@ -13,8 +13,8 @@ extern End::EndScreen* endMenu;
 
 
 Diver::Diver(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent), diverRight(":/images/scubaRight.png"),
-    diverLeft(":/images/scubaLeft.png"), diverUp(":/images/scubaUp.png"), diverDown(":/images/scubaDown.png")
-
+    diverLeft(":/images/scubaLeft.png"), diverUp(":/images/scubaUp.png"), diverDown(":/images/scubaDown.png"),
+    hasPearl(false)
 {
     setPixmap(diverRight);
     setScale(0.3);
@@ -41,61 +41,38 @@ Diver::Diver(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent), di
 void Diver::keyPressEvent(QKeyEvent *event) {
 
 
-    //Code to see if the diver collides with pearl
-    QList<QGraphicsItem*> colliding_items = collidingItems();
+    //Code to see if the diver collides with pearl or shark
+    QList<QGraphicsItem*> colliding_items = collidingItems(Qt::IntersectsItemShape);
 
+    //if one of the colliding items is a pearl
+    //and the diver doesn't already have a pearl, attach pearl to the diver
+    for (size_t i = 0; i < colliding_items.size(); ++i){
 
+        if (typeid(* (colliding_items[i])) == typeid(Pearl)) {
 
+            pickUpPearl(colliding_items[i]);
 
-    //if one of the colliding items is a pearl remove the pearl
-    for (int i = 0, n = colliding_items.size(); i < n; ++i){
-
-        if (typeid(*(colliding_items[i])) == typeid(Pearl)) {
-
-            //remove pearl from the scene
-            scene()->removeItem(colliding_items[i]);
-
-            //delete pearl
-            delete colliding_items[i];
-
-            //increase the score
-            game->increase_score();
-
-            return;
         }
 
     }
 
-    //if one of the colliding items is a shark, emit hit shark
-    for (size_t i = 0, n = colliding_items.size(); i < n; ++i){
 
-        if (typeid(*(colliding_items[i])) == typeid(Shark)){
-
-            scene()->removeItem(colliding_items[i]);
-
-            delete colliding_items[i];
-
-            emit hitShark();
-        }
-    }
-
-
-
-
-
-    //if the diver surfaces, increase the level and spawn new pearls
-    //switch graphic back to scubaRight
-    if (pos().y() < 110 && event->key() == Qt::Key_Up){
-
-        //increase the level
-        game->increase_level();
+    //if the diver hits the boat with the pearl, drop the pearl, increase score
+    if (hasPearl &&
+        pos().y() < 161 &&
+        pos().x() > game->boat->x() &&
+        pos().x() < game->boat->x() + 300)
+    {
+        dropPearl();
+        game->increase_score();
         spawnPearl(game->get_level());
-        setPixmap(diverRight);
-
     }
+
+
+
+
 
     //move the diver
-
     //Left
     if (event->key() == Qt::Key_Left){
         if (pos().x() > 0){
@@ -119,11 +96,10 @@ void Diver::keyPressEvent(QKeyEvent *event) {
     }
     //Up (easier to go up)
     else if (event->key() == Qt::Key_Up){
-        if (pos().y() > 104) {
+        if (pos().y() > 160) {
             setPixmap(diverUp);
             setPos(x(), y() - 20);
         }
-
     }
 
     /*
@@ -132,6 +108,31 @@ void Diver::keyPressEvent(QKeyEvent *event) {
      * ^^ has code for moving multiple directions at the same time
      */
 
+}
+
+void Diver::pickUpPearl(QGraphicsItem* thePearl) {
+    thePearl->setPos(x(), y());
+    currentPearl = thePearl;
+    hasPearl = true;
+}
+
+void Diver::dropPearl() {
+
+    game->gameScene->removeItem(currentPearl);
+    delete currentPearl;
+    //currentPearl = nullptr;
+    hasPearl = false;
+
+}
+
+//slot function
+void Diver::hitShark(Shark* theShark) {
+
+    game->gameScene->removeItem(theShark);
+
+    delete theShark;
+
+    emit hitShark();
 }
 
 

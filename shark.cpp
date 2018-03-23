@@ -16,6 +16,7 @@ extern Game* game;
 Shark::Shark(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
 
 
+
     //set random y position
     int randomY = qrand() % 860 + 220;
 
@@ -50,10 +51,10 @@ Shark::Shark(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
     //start the timer (call move every 50 ms)
     timer->start(50);
 
+
+
+
 }
-
-
-
 
 
 
@@ -68,6 +69,7 @@ Shark::Shark(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent) {
  ***************************************************************/
 void Shark::move() {
 
+     QObject::connect(this, SIGNAL(hitADiver(Shark*)), game->diver, SLOT(hitShark(Shark*)));
 
     //indicates the speed of a shark
     int speed = 5;
@@ -80,6 +82,23 @@ void Shark::move() {
     else { //if the shark starts from right, move left
         setPos(x() - speed, y());
     }
+
+
+    //Handle Collision with Diver
+    QList<QGraphicsItem*> colliding_items = collidingItems();
+
+    for (size_t i = 0; i < colliding_items.size(); ++i){
+
+
+        if (typeid(*(colliding_items[i])) == typeid(Diver)){
+
+            emit hitADiver(this);
+
+        }
+
+    }
+
+
 
 
 
