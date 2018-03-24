@@ -65,6 +65,7 @@ void Diver::keyPressEvent(QKeyEvent *event) {
     {
         dropPearl();
         game->increase_score();
+        game->increase_level();
         spawnPearl(game->get_level());
     }
 

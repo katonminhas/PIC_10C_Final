@@ -136,9 +136,7 @@ void Game::increase_score() {
 
 // Accessor member function accessing the score of the game
 int Game::get_score() {
-    if (gameScore)
-        return gameScore->score;
-    else return 0;
+    return gameScore->getScore();
 }
 
 

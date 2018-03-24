@@ -72,7 +72,7 @@ void Shark::move() {
      QObject::connect(this, SIGNAL(hitADiver(Shark*)), game->diver, SLOT(hitShark(Shark*)));
 
     //indicates the speed of a shark
-    int speed = 5;
+    int speed = 2 + 3 * game->get_level();
 
 
     //if the shark is starting from the left, move right
@@ -87,8 +87,7 @@ void Shark::move() {
     //Handle Collision with Diver
     QList<QGraphicsItem*> colliding_items = collidingItems();
 
-    for (size_t i = 0; i < colliding_items.size(); ++i){
-
+    for (int i = 0; i < colliding_items.size(); ++i){
 
         if (typeid(*(colliding_items[i])) == typeid(Diver)){
 

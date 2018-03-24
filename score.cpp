@@ -34,7 +34,7 @@ void Score::increase() {
 
 
 
-int Score::getScore() const{
+int Score::getScore() {
    return score;
 }
 

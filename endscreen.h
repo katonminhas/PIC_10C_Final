@@ -31,7 +31,6 @@ namespace End {
 
         bool startisPressed;
 
-
     };
 
 }

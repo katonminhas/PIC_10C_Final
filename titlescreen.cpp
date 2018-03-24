@@ -11,8 +11,10 @@ extern Game* game;
 namespace Title {
 
     void setUpButton(QPushButton* button, int xPos, int yPos, QString text){
+        QFont buttonFont("impact", 20, 4);
         button->setGeometry(xPos, yPos, 350, 150);
         button->setText(text);
+        button->setFont(buttonFont);
     }
 }
 

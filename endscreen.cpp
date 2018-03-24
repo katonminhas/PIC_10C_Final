@@ -18,8 +18,10 @@ extern Game* game;
 namespace End {
 
     void setUpButton(QPushButton* button, int xPos, int yPos, QString text){
+        QFont buttonFont("impact", 20, 4);
         button->setGeometry(xPos, yPos, 350, 150);
         button->setText(text);
+        button->setFont(buttonFont);
     }
 }
 
@@ -56,12 +58,11 @@ End::EndScreen::EndScreen(QWidget *parent) :
 
     //******************* Add the score text *************************//
     QString scoreString;
-    if (game->gameScore){
+    if (game->gameScore)
         scoreString = QString("Score: ") + QString::number(game->get_score());
-    }
-    else{
+    else
         scoreString = QString("Score: 0");
-    }
+
 
     scoreText = new QGraphicsTextItem(scoreString);
     QFont scoreFont("impact", 24);

@@ -14,7 +14,7 @@ public:
 
     void increase();
 
-    int getScore() const;
+    int getScore();
 
     int score;
 
