@@ -69,9 +69,6 @@ public:
 
 
 
-
-
-
 signals:
 
 
@@ -97,9 +94,7 @@ private:
      */
     int level;
 
-
     QTimer* sharkSpawnTimer;
-
 
 
 };

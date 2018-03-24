@@ -14,7 +14,7 @@ extern End::EndScreen* endMenu;
 
 Diver::Diver(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem(parent), diverRight(":/images/scubaRight.png"),
     diverLeft(":/images/scubaLeft.png"), diverUp(":/images/scubaUp.png"), diverDown(":/images/scubaDown.png"),
-    hasPearl(false)
+    hasPearl(false), pearlCount(0)
 {
     setPixmap(diverRight);
     setScale(0.3);
@@ -49,9 +49,7 @@ void Diver::keyPressEvent(QKeyEvent *event) {
     for (size_t i = 0; i < colliding_items.size(); ++i){
 
         if (typeid(* (colliding_items[i])) == typeid(Pearl)) {
-
             pickUpPearl(colliding_items[i]);
-
         }
 
     }
@@ -65,8 +63,13 @@ void Diver::keyPressEvent(QKeyEvent *event) {
     {
         dropPearl();
         game->increase_score();
-        game->increase_level();
-        spawnPearl(game->get_level());
+
+        if (pearlCount == game->get_level()){
+            game->increase_level();
+            pearlCount = 0;
+            spawnPearl(game->get_level());
+        }
+
     }
 
 
@@ -118,12 +121,11 @@ void Diver::pickUpPearl(QGraphicsItem* thePearl) {
 }
 
 void Diver::dropPearl() {
-
     game->gameScene->removeItem(currentPearl);
     delete currentPearl;
     //currentPearl = nullptr;
     hasPearl = false;
-
+    pearlCount++;
 }
 
 //slot function

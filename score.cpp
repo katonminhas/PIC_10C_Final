@@ -1,10 +1,11 @@
 #include "score.h"
+#include "game.h"
 
 #include <QFont>
 
 
 
-
+extern Game* game;
 
 Score::Score(QGraphicsItem *parent) : score(0) {
 
@@ -35,7 +36,7 @@ void Score::increase() {
 
 
 int Score::getScore() {
-   return score;
+        return score;
 }
 
 

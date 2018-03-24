@@ -72,7 +72,7 @@ void Shark::move() {
      QObject::connect(this, SIGNAL(hitADiver(Shark*)), game->diver, SLOT(hitShark(Shark*)));
 
     //indicates the speed of a shark
-    int speed = 2 + 3 * game->get_level();
+    int speed = 2 + 2 * game->get_level();
 
 
     //if the shark is starting from the left, move right

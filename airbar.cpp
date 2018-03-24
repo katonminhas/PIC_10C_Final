@@ -37,8 +37,8 @@ void AirBar::decrease() {
         if (height > 0){
             //if the diver is below the surface, decrease the airbar
             if (game->diver->pos().y() > 160){
-                height --;
-                yPos++;
+                height -= 2;
+                yPos += 2;
                 setRect(20, yPos, 30, height);
             }
             //if the diver surfaces, airbar is full

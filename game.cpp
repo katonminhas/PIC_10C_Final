@@ -39,8 +39,12 @@ Game::Game(QWidget *parent) :
     setFixedSize(1972, 1442);
 
 
-    //start the timer to spawn sharks every 5 seconds
-    sharkSpawnTimer->start(5000);
+    //start the timer to spawn sharks - higher levels = faster spawn
+    if (level < 3)
+        sharkSpawnTimer->start(3000);
+    else{
+        sharkSpawnTimer->start(1000 * level);
+    }
 
 }
 
@@ -114,8 +118,6 @@ void Game::setUpScene(){
 }
 
 
-
-
 //increases the level of the game
 void Game::increase_level() {
     ++level;
@@ -138,8 +140,6 @@ void Game::increase_score() {
 int Game::get_score() {
     return gameScore->getScore();
 }
-
-
 
 
 void Game::startGame() {

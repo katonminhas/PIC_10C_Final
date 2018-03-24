@@ -79,7 +79,6 @@ private:
     //all possible diver images
     QPixmap diverRight, diverLeft, diverUp, diverDown;
 
-
     QPixmap currentDiver;
 
     QGraphicsItem* currentPearl;
@@ -87,6 +86,8 @@ private:
     QGraphicsItem* currentShark;
 
     bool hasPearl;
+
+    int pearlCount;
 
 };
 
