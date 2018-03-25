@@ -21,7 +21,7 @@ class Game : public QGraphicsView {
 public:
 
 
-    Game(QWidget* parent = 0);
+    Game(QWidget* paren5t = 0);
 
 
     virtual ~Game() {}
@@ -53,20 +53,13 @@ public:
 
     Boat* boat;
 
-
-
     void increase_level();
-
 
     int get_level() const;
 
-
     void increase_score();
 
-
     int get_score();
-
-
 
 
 signals:
@@ -76,6 +69,7 @@ signals:
 
 
 public slots:
+
 
     void startGame();
 

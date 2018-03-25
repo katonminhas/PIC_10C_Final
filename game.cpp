@@ -25,7 +25,8 @@ Game::Game(QWidget *parent) :
     gameScore(nullptr),
     bar(nullptr),
     boat(nullptr),
-    sharkSpawnTimer(new QTimer())
+    sharkSpawnTimer(new QTimer()),
+    level(1)
 {
     //set up the scene
     setUpScene();
@@ -40,10 +41,10 @@ Game::Game(QWidget *parent) :
 
 
     //start the timer to spawn sharks - higher levels = faster spawn
-    if (level < 3)
-        sharkSpawnTimer->start(3000);
+    if (level < 5)
+        sharkSpawnTimer->start(6500 - 1000 * level);
     else{
-        sharkSpawnTimer->start(1000 * level);
+        sharkSpawnTimer->start(1000);
     }
 
 }
@@ -165,6 +166,10 @@ void Game::startGame() {
     //closes game if diver hit's a shark
     QObject::connect(diver, SIGNAL(hitShark()), this, SLOT(close()));
     QObject::connect(diver, SIGNAL(hitShark()), endMenu, SLOT(show()));
+
+    //closes game if diver runs out of air
+    QObject::connect(bar, SIGNAL(outOfAir()), this, SLOT(close()));
+    QObject::connect(bar, SIGNAL(outOfAir()), endMenu, SLOT(show()));
 
 
     show();     //show the view

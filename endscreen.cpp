@@ -98,6 +98,10 @@ End::EndScreen::EndScreen(QWidget *parent) :
     //if shark gets hit show the end screen
     QObject::connect(game->diver, SIGNAL(hitShark()), this, SLOT(show()));
 
+    //if airbar runs out, show end screen
+    QObject::connect(game->bar, SIGNAL(outOfAir()), this, SLOT(show()));
+
+
     //Connect buttons
     QObject::connect(startButton, SIGNAL(pressed()), game, SLOT(resetGame()));
     QObject::connect(startButton, SIGNAL(pressed()), this, SLOT(close()));

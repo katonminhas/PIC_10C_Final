@@ -32,6 +32,10 @@ private:
 
 
 
+signals:
+
+    void outOfAir();
+
 };
 
 

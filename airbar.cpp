@@ -31,6 +31,7 @@ AirBar::AirBar(QGraphicsItem *parent) : QObject(), QGraphicsRectItem(parent), he
 
 void AirBar::decrease() {
 
+
     if (game->diver) {
 
         //if there is height to decrease, decrease it
@@ -47,6 +48,9 @@ void AirBar::decrease() {
                 yPos = 220;
                 setRect(20, yPos, 30, height);
             }
+        }
+        else {
+            emit outOfAir();
         }
     }
 
